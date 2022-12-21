@@ -1,4 +1,4 @@
-FROM --platform=$TARGETPLATFORM registry.access.redhat.com/ubi8 as builder
+FROM --platform=${BUILDPLATFORM} registry.access.redhat.com/ubi8 as builder
 
 RUN dnf -y update && dnf -y --setopt=tsflags=nodocs install \
     gcc git make numactl-devel numactl-libs python39 \
@@ -12,7 +12,7 @@ RUN git clone -b main git://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git &
     rm -rf rt-tests 
 
 ########
-FROM --platform=$TARGETPLATFORM registry.access.redhat.com/ubi8
+FROM --platform=${BUILDPLATFORM} registry.access.redhat.com/ubi8
 
 RUN dnf -y update && dnf -y --setopt=tsflags=nodocs install \
     numactl-libs python39 \
